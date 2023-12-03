@@ -1,0 +1,22 @@
+{
+  "name": "adventofcode2023",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/emollett/AdventOfCode2023.git"
+  },
+  "author": "Eleanor Mollett",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/emollett/AdventOfCode2023/issues"
+  },
+  "homepage": "https://github.com/emollett/AdventOfCode2023#readme",
+  "dependencies": {
+    "jest": "^29.7.0"
+  }
+}
