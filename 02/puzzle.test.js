@@ -2,7 +2,10 @@ fs = require('fs');
 const {
   isSetPossible,
   isGamePossible,
-    getPassingIds
+    getPassingIds,
+    getSmallestSet,
+    getPowerOfSet,
+    addAllThePowers
   } = require("./puzzle");
 
 testinput = fs.readFileSync(`${__dirname}/puzzletestinput.txt`).toString().split("\n");
@@ -45,7 +48,7 @@ test("add them all up", () => {
   expect(output).toBe(8)
 })
 
-test("answer", () => {
+test("answer part1", () => {
   const games = input
   const requirement = {"red":12, "green":13, "blue": 14}
   const ids = getPassingIds(games, requirement)
@@ -53,3 +56,26 @@ test("answer", () => {
   expect(output).toBe(2085)
 })
 
+test("get the smallest number of balls needed for the game", () => {
+  const game = "3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green".split(';')
+  const smallestSet = getSmallestSet(game)
+  expect(smallestSet).toStrictEqual({"red":4, "green":2, "blue": 6})
+})
+
+test("gets power of smallest number of balls needed", () => {
+  const game = "3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green".split(';')
+  const powerOfSet = getPowerOfSet(game)
+  expect(powerOfSet).toBe(48)
+})
+
+test("gets powers of all the sets", () => {
+  const games = testinput
+  const powers = addAllThePowers(games)
+  expect(powers).toBe(2286)
+})
+
+test("answer part2", () => {
+  const games = input
+  const powers = addAllThePowers(games)
+  expect(powers).toBe(79315)
+})
