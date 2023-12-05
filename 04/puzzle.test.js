@@ -4,7 +4,8 @@ const {
   parseCard,
   getMatchingNumbers,
   getScore,
-  getTotalScore
+  getTotalScore,
+  getNumberOfCards
   } = require("./puzzle");
 
 testinput = fs.readFileSync(`${__dirname}/puzzletestinput.txt`).toString().split("\n");
@@ -39,4 +40,16 @@ test("part 1", () => {
   const cards = input
   const totalScore = getTotalScore(cards)
   expect(totalScore).toBe(24160)
+})
+
+test("get the number of scratch cards won under the new rules", () => {
+  const cards = testinput
+  const score = getNumberOfCards(cards)
+  expect(score).toBe(30)
+})
+
+test("part 2", () => {
+  const cards = input
+  const score = getNumberOfCards(cards)
+  expect(score).toBe(30)
 })
