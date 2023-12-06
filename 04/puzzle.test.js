@@ -1,5 +1,4 @@
 fs = require('fs');
-const { hasUncaughtExceptionCaptureCallback } = require('process');
 const {
   parseCard,
   getMatchingNumbers,
@@ -48,16 +47,16 @@ test("get the number of each scratch card won under the new rules", () => {
   const cards = testinput
   const score = getNumberOfCards(cards)
   expect(score).toStrictEqual([
-      {"copies": 1, "score": 4},
-    {"copies": 2, "score": 2},
-    {"copies": 4, "score": 2},
-    {"copies": 8, "score": 1},
-    {"copies": 14, "score": 0},
-    {"copies": 1, "score": 0}])
+      {"copies": 1, "matches": 4},
+    {"copies": 2, "matches": 2},
+    {"copies": 4, "matches": 2},
+    {"copies": 8, "matches": 1},
+    {"copies": 14, "matches": 0},
+    {"copies": 1, "matches": 0}])
 })
 
 test("gets the total number of cards won", () => {
-  const scores = [{"copies": 1, "score": 4}, {"copies": 2, "score": 2}, {"copies": 4, "score": 2}, {"copies": 8, "score": 1}, {"copies": 14, "score": 0}, {"copies": 1, "score": 0}]
+  const scores = [{"copies": 1, "matches": 4}, {"copies": 2, "matches": 2}, {"copies": 4, "matches": 2}, {"copies": 8, "matches": 1}, {"copies": 14, "matches": 0}, {"copies": 1, "matches": 0}]
   const score = getTotalNumberOfCards(scores)
   expect(score).toBe(30)
 })
@@ -66,20 +65,20 @@ test("part 2", () => {
   const cards = input
   const scores = getNumberOfCards(cards)
   const score = getTotalNumberOfCards(scores)
-  expect(score).toBe(5604889) // too low
+  expect(score).toBe(5659035)
 })
 
 test("when the last line has some matches", () => {
   const cards = testinput2
   const score = getNumberOfCards(cards)
   expect(score).toStrictEqual([
-    {"copies": 1, "score": 4},
-    {"copies": 2, "score": 2},
-    {"copies": 4, "score": 2},
-    {"copies": 8, "score": 1},
-    {"copies": 14, "score": 0},
-    {"copies": 1, "score": 0},
-    {"copies" : 1, "score": 1}])
+    {"copies": 1, "matches": 4},
+    {"copies": 2, "matches": 2},
+    {"copies": 4, "matches": 2},
+    {"copies": 8, "matches": 1},
+    {"copies": 14, "matches": 0},
+    {"copies": 1, "matches": 0},
+    {"copies" : 1, "matches": 1}])
   const totalCards = getTotalNumberOfCards(score)
   expect(totalCards).toBe(31)
   // problem wasn't actually last line, it was that I was using the score not the count from before but hadn't noticed because the example had too few cards

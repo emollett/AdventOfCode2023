@@ -1,15 +1,14 @@
 function parseCard(card) {
-    numbers = card.split(':')[1].split('|')
-    
-    winningNumbers = numbers[0].trim().split(/\s+/).map((string) => Number(string))
-    myNumbers = numbers[1].trim().split(/\s+/).map((string) => Number(string))
+    let numbers = card.split(':')[1].split('|')
+
+    let winningNumbers = numbers[0].trim().split(/\s+/).map((string) => Number(string))
+    let myNumbers = numbers[1].trim().split(/\s+/).map((string) => Number(string))
 
     return {winningNumbers, myNumbers}
 }
 
 function getMatchingNumbers(parsedCard) {
-    let results = (parsedCard.winningNumbers).filter(value => (parsedCard.myNumbers).includes(value))
-    return results
+    return (parsedCard.winningNumbers).filter(value => (parsedCard.myNumbers).includes(value))
 }
 
 function getScore(matchingNumbers) {
@@ -17,7 +16,7 @@ function getScore(matchingNumbers) {
 }
 
 function getTotalScore(cards) {
-    runningScore = 0
+    let runningScore = 0
     cards.forEach((card) => {
         parsedCard = parseCard(card)
         score = getScore(getMatchingNumbers(parsedCard))
@@ -27,23 +26,27 @@ function getTotalScore(cards) {
 }
 
 function getNumberOfCards(cards) {
-    scores = []
+    let scores = []
     cards.forEach((card) => {
         parsedCard = parseCard(card)
-        score = getMatchingNumbers(parsedCard).length
-        scores.push({score, copies: 1})
+        matches = getMatchingNumbers(parsedCard).length
+        scores.push({matches, copies: 1})
     })
 
     scores.forEach((score, index) => {
-        for (let i = 1; i <= score.score; i++) {
-            if (index+i < scores.length-1) scores[index+i].copies += score.copies
+        for (let i = 1; i <= score.matches; i++) {
+            if (index+i < scores.length) scores[index+i].copies += score.copies
         }
     })
     return scores
 }
 
 function getTotalNumberOfCards(scores) {
-    return scores.reduce((partialSum, a) => partialSum + a.copies, 0)
+    let numberOfCards = 0
+    scores.forEach((score) => {
+        numberOfCards += score.copies
+    })
+    return numberOfCards
 }
 
 module.exports = {
