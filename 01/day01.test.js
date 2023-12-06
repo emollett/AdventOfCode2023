@@ -3,7 +3,7 @@ const {
     getNumbers, wordNumberToStringDigit, parsedArray
   } = require("./day01");
 
-testinput = fs.readFileSync('/day01testinput.txt').toString().split("\n");
+testinput = fs.readFileSync('01/day01testinput.txt').toString().split("\n");
 input = fs.readFileSync('01/day01input.txt').toString().split("\n");
 
 test("should parse the first and last digits out", () => {
