@@ -5,10 +5,12 @@ const {
   getMatchingNumbers,
   getScore,
   getTotalScore,
-  getNumberOfCards
+  getNumberOfCards,
+    getTotalNumberOfCards
   } = require("./puzzle");
 
 testinput = fs.readFileSync(`${__dirname}/puzzletestinput.txt`).toString().split("\n");
+testinput2 = fs.readFileSync(`${__dirname}/puzzletestinput2.txt`).toString().split("\n");
 input = fs.readFileSync(`${__dirname}/puzzleinput.txt`).toString().split("\n");
 
 test("parses to two sets of numbers", () => {
@@ -42,14 +44,43 @@ test("part 1", () => {
   expect(totalScore).toBe(24160)
 })
 
-test("get the number of scratch cards won under the new rules", () => {
+test("get the number of each scratch card won under the new rules", () => {
   const cards = testinput
   const score = getNumberOfCards(cards)
+  expect(score).toStrictEqual([
+      {"copies": 1, "score": 4},
+    {"copies": 2, "score": 2},
+    {"copies": 4, "score": 2},
+    {"copies": 8, "score": 1},
+    {"copies": 14, "score": 0},
+    {"copies": 1, "score": 0}])
+})
+
+test("gets the total number of cards won", () => {
+  const scores = [{"copies": 1, "score": 4}, {"copies": 2, "score": 2}, {"copies": 4, "score": 2}, {"copies": 8, "score": 1}, {"copies": 14, "score": 0}, {"copies": 1, "score": 0}]
+  const score = getTotalNumberOfCards(scores)
   expect(score).toBe(30)
 })
 
 test("part 2", () => {
   const cards = input
+  const scores = getNumberOfCards(cards)
+  const score = getTotalNumberOfCards(scores)
+  expect(score).toBe(5604889) // too low
+})
+
+test("when the last line has some matches", () => {
+  const cards = testinput2
   const score = getNumberOfCards(cards)
-  expect(score).toBe(30)
+  expect(score).toStrictEqual([
+    {"copies": 1, "score": 4},
+    {"copies": 2, "score": 2},
+    {"copies": 4, "score": 2},
+    {"copies": 8, "score": 1},
+    {"copies": 14, "score": 0},
+    {"copies": 1, "score": 0},
+    {"copies" : 1, "score": 1}])
+  const totalCards = getTotalNumberOfCards(score)
+  expect(totalCards).toBe(31)
+  // problem wasn't actually last line, it was that I was using the score not the count from before but hadn't noticed because the example had too few cards
 })
