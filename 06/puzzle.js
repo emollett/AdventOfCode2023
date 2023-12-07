@@ -26,6 +26,13 @@ function parseRaces(races){
     return parsedRaces
 }
 
+function parseRacesKerning(races){
+    let time = Number(races[0].split(':')[1].trim().replace(/\D+/g, ''))
+    let distance = Number(races[1].split(':')[1].trim().replace(/\D+/g, ''))
+
+    return [{time, distance}]
+}
+
 function getWinningHolds(parsedRaces){
     let winningHolds = []
     const repeats = parsedRaces.length
@@ -52,5 +59,6 @@ module.exports = {
     getNumberOfWinningHolds,
     parseRaces,
     getWinningHolds,
-    getMarginOfError
+    getMarginOfError,
+    parseRacesKerning
 }

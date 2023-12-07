@@ -4,7 +4,8 @@ const {
   getNumberOfWinningHolds,
   parseRaces,
   getWinningHolds,
-    getMarginOfError
+    getMarginOfError,
+    parseRacesKerning
   } = require("./puzzle");
 
 testinput = fs.readFileSync(`${__dirname}/puzzletestinput.txt`).toString().split("\n");
@@ -46,4 +47,24 @@ test("part 1", () => {
   let races = input
   let marginOfError = getMarginOfError(races)
   expect(marginOfError).toBe(220320)
+})
+
+test("get time and distance with new parsing", () => {
+  let races = testinput
+  let parsedRaces = parseRacesKerning(races)
+  expect(parsedRaces).toStrictEqual([{time: 71530, distance: 940200}])
+})
+
+test("get winning times with new parsing", () => {
+  let races = testinput
+  let parsedRaces = parseRacesKerning(races)
+  let winningHolds = getWinningHolds(parsedRaces)
+  expect(winningHolds[0]).toBe(71503)
+})
+
+test("part 2", () => {
+  let races = input
+  let parsedRaces = parseRacesKerning(races)
+  let winningHolds = getWinningHolds(parsedRaces)
+  expect(winningHolds[0]).toBe(34454850)
 })
