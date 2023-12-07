@@ -1,10 +1,12 @@
 function findFirstWinningTime(time, distance) {
-    for(i=0; i<time; i++){
+    let timeHeld = 0
+    for(let i=0; i<time; i++){
         timeHeld = i
-        remainingTime = time-timeHeld
-        distanceTravelled = timeHeld * remainingTime
-        if (distanceTravelled > distance) return timeHeld
+        let remainingTime = time-timeHeld
+        let distanceTravelled = timeHeld * remainingTime
+        if (distanceTravelled > distance) { break; }
     }
+    return timeHeld
 }
 
 function getNumberOfWinningHolds(firstWinningTime, time) {
@@ -12,10 +14,10 @@ function getNumberOfWinningHolds(firstWinningTime, time) {
 }
 
 function parseRaces(races){
-    times = races[0].split(':')[1].trim().split(/\s+/g)
-    distances = races[1].split(':')[1].trim().split(/\s+/g)
+    let times = races[0].split(':')[1].trim().split(/\s+/g)
+    let distances = races[1].split(':')[1].trim().split(/\s+/g)
 
-    parsedRaces = []
+    let parsedRaces = []
 
     times.forEach((time, index) => {
         parsedRaces.push({time: Number(time), distance: Number(distances[index])})
@@ -24,12 +26,13 @@ function parseRaces(races){
     return parsedRaces
 }
 
-function getWinningHolds(races){
+function getWinningHolds(parsedRaces){
     let winningHolds = []
+    const repeats = parsedRaces.length
 
-    for(i=0; i<races.length; i++){
-        let time = races[i].time
-        let distance = races[i].distance
+    for(let i=0; i<repeats; i++){
+        let time = parsedRaces[i].time
+        let distance = parsedRaces[i].distance
         let firstWinningTime = findFirstWinningTime(time, distance)
         let numberOfWinningHolds = getNumberOfWinningHolds(firstWinningTime, time)
         winningHolds.push(numberOfWinningHolds)
@@ -38,9 +41,16 @@ function getWinningHolds(races){
     return winningHolds
 }
 
+function getMarginOfError(races){
+    let parsedRaces = parseRaces(races)
+    let winningHolds = getWinningHolds(parsedRaces)
+    return winningHolds.reduce((partialSum, a) => partialSum * a, 1)
+}
+
 module.exports = {
     findFirstWinningTime,
     getNumberOfWinningHolds,
     parseRaces,
-    getWinningHolds
+    getWinningHolds,
+    getMarginOfError
 }
