@@ -1,4 +1,3 @@
-const {getNumbers} = require("../01/day01");
 fs = require('fs');
 const {
 
