@@ -1,7 +1,8 @@
 fs = require('fs');
 const {
   parseNumbers,
-  findNumbersNearSymbols
+  findNumbersNearSymbols,
+  getSumOfPartNumbers
   } = require("./puzzle");
 
 testinput = fs.readFileSync(`${__dirname}/puzzletestinput.txt`).toString().split("\n");
@@ -17,4 +18,14 @@ test("checks the surrounding locations to see if there is asymbol there", () => 
   let parsedNumbers = parseNumbers(testinput)
   let numbersNearSymbols = findNumbersNearSymbols(parsedNumbers, testinput)
   expect(numbersNearSymbols).toStrictEqual([467, 35, 633, 617, 592, 755, 664, 598])
+})
+
+test("gets the sum of all the part numbers", () => {
+  let sum = getSumOfPartNumbers(testinput)
+  expect(sum).toBe(4361)
+})
+
+test("part1", () => {
+  let sum = getSumOfPartNumbers(input)
+  expect(sum).toBe(532331) // too low
 })
