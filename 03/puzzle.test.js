@@ -2,7 +2,8 @@ fs = require('fs');
 const {
   parseNumbers,
   findNumbersNearSymbols,
-  getSumOfPartNumbers
+  getSumOfPartNumbers,
+    parseGears
   } = require("./puzzle");
 
 testinput = fs.readFileSync(`${__dirname}/puzzletestinput.txt`).toString().split("\n");
@@ -28,4 +29,13 @@ test("gets the sum of all the part numbers", () => {
 test("part1", () => {
   let sum = getSumOfPartNumbers(input)
   expect(sum).toBe(532331) // too low
+})
+
+test("finds all the potential gears", () => {
+  let parsedGears = parseGears(testinput)
+  expect(parsedGears).toStrictEqual([[3, 1], [3, 4], [5, 8]])
+})
+
+test("finds gears and their corresponding numbers", () => {
+
 })

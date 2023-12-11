@@ -20,6 +20,20 @@ function parseNumbers(lines) {
     return numbers
 }
 
+function parseGears(lines) {
+    gears = []
+
+    lines.forEach((line, y) => {
+        line.split('').forEach((character, x) => {
+            if (character == '*') {
+                gears.push([x, y])
+            }
+        })
+    })
+
+    return gears
+}
+
 function findNumbersNearSymbols(parsedNumber, lines) {
     let partNumbers = []
     let height = lines.length
@@ -86,5 +100,6 @@ function getSumOfPartNumbers(input) {
 module.exports = {
     parseNumbers,
     findNumbersNearSymbols,
-    getSumOfPartNumbers
+    getSumOfPartNumbers,
+    parseGears
 }
